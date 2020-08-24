@@ -1,0 +1,1 @@
+export const MYGITHUBURL = "https://github.com/AnaVomvylas";
