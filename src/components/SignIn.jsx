@@ -18,7 +18,7 @@ import { MYGITHUBURL } from '../shared/constants';
 const BottomText = () => {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {'Made by Anastasis Vomvylas '}
+            {'The Wall - Anastasis Vomvylas'}
             <GitHubIcon color="inherit" href={MYGITHUBURL} />
             {new Date().getFullYear()}
             {'.'}
