@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import Home from './components/Home';
 
-function App() {
+const App = () => {
+
   return (
-    <SignUp />
+    <Home />
   );
 }
 
