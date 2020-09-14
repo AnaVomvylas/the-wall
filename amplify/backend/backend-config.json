@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "thewall93645653": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
