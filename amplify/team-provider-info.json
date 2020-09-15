@@ -10,11 +10,6 @@
       "StackName": "amplify-thewall-dev-201250",
       "StackId": "arn:aws:cloudformation:eu-central-1:571066739706:stack/amplify-thewall-dev-201250/89b27310-f6ad-11ea-a941-0a3f04c080ce",
       "AmplifyAppId": "d1cqetvr8ggggy"
-    },
-    "categories": {
-      "auth": {
-        "thewall93645653": {}
-      }
     }
   }
 }
