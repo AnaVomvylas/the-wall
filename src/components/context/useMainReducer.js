@@ -1,20 +1,11 @@
 import { useReducer } from 'react';
 
-const setUser = (state, user) => {
-    try {
-        // const valueToStore =
-        //     value instanceof Function ? value(storedValue) : value;
-        window.localStorage.setItem("user", JSON.stringify(user));
-    } catch (error) {
-        console.log(error);
-    }
-    return { ...state, user: user };
-};
+const setIsAuthenticated = (state, value) => ({ ...state, isAuthenticated: value });
 
 const mainReducer = (state, action) => {
     switch (action.type) {
-        case "SET_USER":
-            return setUser(state, action.user);
+        case "AUTHENTICATE":
+            return setIsAuthenticated(state, action.value);
         default:
             return state;
     }

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, IconButton, Divider, ToggleButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { deepOrange } from '@material-ui/core/colors';
 import HeartButton from './HeartButton';
-import { Auth } from 'aws-amplify'
-
+import { MainContext } from './context/ContextProvider';
+import { SIGNINURL } from '../shared/constants';
 
 const useStyles = makeStyles((theme) => ({
   orange: {
@@ -16,10 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    Auth, 
-  }, []);
+  const { isAuthenticated } = useContext(MainContext);
 
 
   const samplePost =
@@ -47,6 +44,8 @@ const Home = (props) => {
 
   const multiplePosts = Array(50).fill().map(x => x = samplePost);
 
+  //Redirect to signIn page if not authenticated
+  if (!isAuthenticated) {props.history.push(SIGNINURL)};
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container>

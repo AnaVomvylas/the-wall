@@ -1,38 +1,41 @@
 import React, { createContext } from 'react';
 import useMainReducer from './useMainReducer';
+import { Auth } from 'aws-amplify';
+
+const authenticateAction = "AUTHENTICATE";
 
 export const MainContext = createContext();
 
-const getUserFromLocalStorage = () => {
-    try {
-      const user = localStorage.getItem('user');
-      return user ? JSON.parse(user) : null;
-    } catch (err) {
-      return null;
-    }
-  };
+async function checkIfAuthenticated() {
+  try {
+    await Auth.currentAuthenticatedUser();
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
 export const ContextProvider = props => {
-    const defaultMainState = {
-        user: getUserFromLocalStorage()
-    };
-    const [mainState, mainDispatch] = useMainReducer(defaultMainState);
+  let isUserAuthenticated;
+  checkIfAuthenticated().then(result => isUserAuthenticated = result);
+
+  const defaultMainState = {
+    isAuthenticated: isUserAuthenticated
+  };
+  const [mainState, mainDispatch] = useMainReducer(defaultMainState);
 
 
-    
-    const { user } = mainState;
-    const setUser = (user) => mainDispatch({ type: "SET_USER", user });
+  const { isAuthenticated } = mainState;
+  const setIsAuthenticated = (value) => mainDispatch({ type: authenticateAction, value });
 
+  const mainContextValue = {
+    isAuthenticated,
+    setIsAuthenticated
+  };
 
-
-    const mainContextValue = {
-        user,
-        setUser
-    };
-
-    return (
-        <MainContext.Provider value={mainContextValue}>
-            {props.children}
-        </MainContext.Provider>
-    );
+  return (
+    <MainContext.Provider value={mainContextValue}>
+      {props.children}
+    </MainContext.Provider>
+  );
 };
