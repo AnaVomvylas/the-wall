@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, IconButton, Divider, ToggleButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { deepOrange } from '@material-ui/core/colors';
 import HeartButton from './HeartButton';
+import { Auth } from 'aws-amplify'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,8 +14,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    Auth, 
+  }, []);
+
 
   const samplePost =
     <Grid item>

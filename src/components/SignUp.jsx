@@ -90,7 +90,7 @@ const SignUp = () => {
           </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -114,7 +114,7 @@ const SignUp = () => {
                 autoComplete="lname"
                 onChange={(e) => setLastName(e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
