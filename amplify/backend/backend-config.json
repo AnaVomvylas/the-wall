@@ -1,5 +1,12 @@
 {
-  "auth": {},
+  "auth": {
+    "thewall4d8a5c39": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
   "storage": {},
   "function": {}
 }
