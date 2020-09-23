@@ -17,7 +17,7 @@ const BottomText = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'The Wall - Anastasis Vomvylas'}
-      <GitHubIcon color="inherit" href={MYGITHUBURL} />
+      <GitHubIcon color="inherit" onClick={e =>  window.open(MYGITHUBURL,'_blank')} />
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+  }
 }));
 
 const SignUp = () => {

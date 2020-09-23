@@ -1,11 +1,11 @@
 import { useReducer } from 'react';
 
-const setIsAuthenticated = (state, value) => ({ ...state, isAuthenticated: value });
+const setUser = (state, user) => ({ ...state, user: user });
 
 const mainReducer = (state, action) => {
     switch (action.type) {
-        case "AUTHENTICATE":
-            return setIsAuthenticated(state, action.value);
+        case "SET_USER":
+            return setUser(state, action.user);
         default:
             return state;
     }

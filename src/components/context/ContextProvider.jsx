@@ -2,35 +2,36 @@ import React, { createContext } from 'react';
 import useMainReducer from './useMainReducer';
 import { Auth } from 'aws-amplify';
 
-const authenticateAction = "AUTHENTICATE";
+const setUserAction = "SET_USER";
 
 export const MainContext = createContext();
 
 async function checkIfAuthenticated() {
   try {
-    await Auth.currentAuthenticatedUser();
-    return true;
+    const data = await Auth.currentAuthenticatedUser()
+    const userInfo = { username: data.username, ...data.attributes }
+    return userInfo;
   } catch (err) {
-    return false;
+    return null;
   }
 };
 
 export const ContextProvider = props => {
-  let isUserAuthenticated;
-  checkIfAuthenticated().then(result => isUserAuthenticated = result);
+  let userInfo;
+  checkIfAuthenticated().then(result => userInfo = result);
 
   const defaultMainState = {
-    isAuthenticated: isUserAuthenticated
+    user: userInfo
   };
   const [mainState, mainDispatch] = useMainReducer(defaultMainState);
+  
+  const { user } = mainState;
+  const setUser = (user) => mainDispatch({ type: setUserAction, user });
 
-
-  const { isAuthenticated } = mainState;
-  const setIsAuthenticated = (value) => mainDispatch({ type: authenticateAction, value });
 
   const mainContextValue = {
-    isAuthenticated,
-    setIsAuthenticated
+    user,
+    setUser
   };
 
   return (

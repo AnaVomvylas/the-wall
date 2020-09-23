@@ -16,8 +16,8 @@ const App = () => {
       <BrowserRouter>
         {/* <Navbar /> */}
         <Switch>
-          <Route exact path={HOMEURL}} component={Home} />
-        <Route exact path={SIGNUPURL} component={SignUp} />
+          <Route exact path={HOMEURL} component={Home} />
+          <Route exact path={SIGNUPURL} component={SignUp} />
           <Route exact path={SIGNINURL} component={SignIn} />
           <Route component={SignUp} />
         </Switch>

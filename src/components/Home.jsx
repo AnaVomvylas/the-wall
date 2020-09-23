@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const { isAuthenticated } = useContext(MainContext);
+  const { user } = useContext(MainContext);
 
 
   const samplePost =
@@ -45,7 +45,8 @@ const Home = (props) => {
   const multiplePosts = Array(50).fill().map(x => x = samplePost);
 
   //Redirect to signIn page if not authenticated
-  if (!isAuthenticated) {props.history.push(SIGNINURL)};
+  if (!user) {props.history.push(SIGNINURL)};
+  
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container>
