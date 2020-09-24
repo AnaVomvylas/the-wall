@@ -1,10 +1,10 @@
 {
     "identityPoolName": "theWallIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "thewal573f45e8",
+    "resourceNameTruncated": "thewal4f0f9012",
     "userPoolName": "theWallUserPool",
     "autoVerifiedAttributes": [
-        "phone_number"
+        "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -21,16 +21,16 @@
         "email"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": "30",
+    "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
         "email"
     ],
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "theWal573f45e8_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "theWal4f0f9012_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "573f45e8",
+    "sharedId": "4f0f9012",
     "resourceName": "theWallAuth",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {

@@ -49,6 +49,7 @@ const SignUp = (props) => {
   const classes = useStyles();
 
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [verifyPassword, setVerifyPassword] = useState();
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
@@ -76,7 +77,10 @@ const SignUp = (props) => {
       try {
         await Auth.signUp({
           username,
-          password
+          password,
+          attributes: {
+            email
+          }
         })
         props.history.push(SIGNINURL);
       } catch (err) {
@@ -135,6 +139,18 @@ const SignUp = (props) => {
                 name="username"
                 autoComplete="username"
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
