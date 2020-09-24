@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-thewall-dev-211609-authRole",
+      "UnauthRoleArn": "arn:aws:iam::571066739706:role/amplify-thewall-dev-211609-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::571066739706:role/amplify-thewall-dev-211609-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-thewall-dev-211609-deployment",
+      "UnauthRoleName": "amplify-thewall-dev-211609-unauthRole",
+      "StackName": "amplify-thewall-dev-211609",
+      "StackId": "arn:aws:cloudformation:eu-central-1:571066739706:stack/amplify-thewall-dev-211609/1221d970-fe92-11ea-b0fd-06a563057a14",
+      "AmplifyAppId": "d2fql6wu504q84"
+    },
+    "categories": {
+      "auth": {
+        "theWallAuth": {}
+      }
+    }
+  }
+}
