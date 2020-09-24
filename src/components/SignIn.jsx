@@ -15,7 +15,8 @@ import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { MYGITHUBURL } from '../shared/constants';
 import { MainContext } from './context/ContextProvider';
-import { RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Amplify from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 import { HOMEURL, SIGNUPURL } from '../shared/constants';
 
@@ -49,10 +50,10 @@ const SignIn = (props) => {
   const { setUser } = useContext(MainContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState();
-
-  let submitResultText = '';
+  const [submitResultText,setSubmitResultText] = useState('');
 
   async function handleSubmit(event) {
+    debugger;
     event.preventDefault();
     try {
       const data = await Auth.signIn(username, password);
@@ -60,16 +61,16 @@ const SignIn = (props) => {
       setUser(userInfo);
       props.history.push(HOMEURL);
     } catch (err) {
-      submitResultText = 'Sign In Failed. ' + err;
+      setSubmitResultText( 'Sign In Failed. ' + err.message);
     }
   };
 
   const BottomText = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {'The Wall - Anastasis Vomvylas'}
-        <GitHubIcon color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
-        {new Date().getFullYear()}
+        {'The Wall - Anastasis Vomvylas   '}
+        <GitHubIcon className={classes.clickableIcon} color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
+        {'   ' + new Date().getFullYear()}
         {'.'}
       </Typography>
     );

@@ -1,10 +1,8 @@
 {
-    "identityPoolName": "thewall4d8a5c39_identitypool_4d8a5c39",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "thewal4d8a5c39",
     "userPoolName": "thewall4d8a5c39_userpool_4d8a5c39",
     "autoVerifiedAttributes": [
-        "email"
+        "phone_number"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -32,7 +30,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "4d8a5c39",
     "resourceName": "thewall4d8a5c39",
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -45,7 +43,7 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "triggers": "{}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
@@ -53,5 +51,8 @@
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": []
+    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "hostedUI": false
 }

@@ -6,6 +6,7 @@ import { deepOrange } from '@material-ui/core/colors';
 import HeartButton from './HeartButton';
 import { MainContext } from './context/ContextProvider';
 import { SIGNINURL } from '../shared/constants';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   orange: {
@@ -45,8 +46,12 @@ const Home = (props) => {
   const multiplePosts = Array(50).fill().map(x => x = samplePost);
 
   //Redirect to signIn page if not authenticated
-  if (!user) {props.history.push(SIGNINURL)};
-  
+  if (!user) {
+    return (
+      <Redirect to={SIGNINURL} />
+  )
+  };
+
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container>

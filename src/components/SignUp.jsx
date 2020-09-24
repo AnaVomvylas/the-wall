@@ -11,14 +11,15 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { MYGITHUBURL } from '../shared/constants';
+import { MYGITHUBURL, SIGNINURL } from '../shared/constants';
+import { Auth } from 'aws-amplify';
 
 const BottomText = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'The Wall - Anastasis Vomvylas'}
-      <GitHubIcon color="inherit" onClick={e =>  window.open(MYGITHUBURL,'_blank')} />
-      {new Date().getFullYear()}
+      {'The Wall - Anastasis Vomvylas   '}
+      <GitHubIcon color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
+      {   new Date().getFullYear()}
       {'.'}
     </Typography>
   );
@@ -44,23 +45,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignUp = () => {
+const SignUp = (props) => {
   const classes = useStyles();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState();
   const [verifyPassword, setVerifyPassword] = useState();
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [verifyPasswordHelperText, setVerifyPasswordHelperText] = useState('')
+  const [submitResultText,setSubmitResultText] = useState('');
 
   const onChangeVerifyPassword = (event) => {
-    let updatedVerifyPass = event.target.value;
-    setVerifyPassword(updatedVerifyPass);
+    let newVerifyPassword = event.target.value;
+    setVerifyPassword(newVerifyPassword);
     setVerifyPasswordHelperText('');
 
-    if (password === updatedVerifyPass) {
+    if (password === newVerifyPassword) {
       setIsPasswordVerified(true);
     }
     else {
@@ -68,10 +68,20 @@ const SignUp = () => {
     }
   }
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
+    debugger;
     event.preventDefault();
     if (isPasswordVerified) {
       //TODO: route to sign in and save credentials
+      try {
+        await Auth.signUp({
+          username,
+          password
+        })
+        props.history.push(SIGNINURL);
+      } catch (err) {
+        setSubmitResultText('Error Signing Up. ' + err.message);
+      }
     }
     else {
       setVerifyPasswordHelperText('Passwords do not match');
@@ -148,9 +158,8 @@ const SignUp = () => {
                 name="password2"
                 label="Verify Pasword"
                 type="password"
-                value={verifyPassword}
                 id="password2"
-                error={(isPasswordVerified || !verifyPassword) ? false : true}
+                error={(!isPasswordVerified && verifyPassword) ? true : false}
                 value={verifyPassword || ''}
                 onChange={onChangeVerifyPassword}
                 helperText={verifyPasswordHelperText}
@@ -166,6 +175,9 @@ const SignUp = () => {
           >
             Sign Up
             </Button>
+          <Typography variant="body2" color='error'>
+            {submitResultText}
+          </Typography>
           <Grid container>
             <Grid item>
               <Link href="#" variant="body2">

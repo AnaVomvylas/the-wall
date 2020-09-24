@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import useMainReducer from './useMainReducer';
+import Amplify from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 
 const setUserAction = "SET_USER";
