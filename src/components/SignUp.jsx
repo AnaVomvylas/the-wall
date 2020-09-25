@@ -10,20 +10,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import { MYGITHUBURL, SIGNINURL } from '../shared/constants';
+import BottomTextInformation from './UI/BottomTextInformation';
+import { SIGNINURL } from '../shared/constants';
 import { Auth } from 'aws-amplify';
-
-const BottomText = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'The Wall - Anastasis Vomvylas   '}
-      <GitHubIcon color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
-      {   new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import ConfirmSignUp from './ConfirmSignUp';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -54,7 +45,8 @@ const SignUp = (props) => {
   const [verifyPassword, setVerifyPassword] = useState();
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [verifyPasswordHelperText, setVerifyPasswordHelperText] = useState('')
-  const [submitResultText,setSubmitResultText] = useState('');
+  const [submitResultText, setSubmitResultText] = useState('');
+  const [confirmSignUp, setConfirmSignUp] = useState(false);
 
   const onChangeVerifyPassword = (event) => {
     let newVerifyPassword = event.target.value;
@@ -73,7 +65,6 @@ const SignUp = (props) => {
     debugger;
     event.preventDefault();
     if (isPasswordVerified) {
-      //TODO: route to sign in and save credentials
       try {
         await Auth.signUp({
           username,
@@ -82,7 +73,8 @@ const SignUp = (props) => {
             email
           }
         })
-        props.history.push(SIGNINURL);
+        setConfirmSignUp(true);
+        //props.history.push(SIGNINURL);
       } catch (err) {
         setSubmitResultText('Error Signing Up. ' + err.message);
       }
@@ -91,6 +83,13 @@ const SignUp = (props) => {
       setVerifyPasswordHelperText('Passwords do not match');
     }
   }
+
+  //Render ConfirmSignUp if sign up was successful
+  if (confirmSignUp) {
+    return (
+      <ConfirmSignUp username={username} />
+    )
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -104,31 +103,6 @@ const SignUp = (props) => {
           </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -196,7 +170,7 @@ const SignUp = (props) => {
           </Typography>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouterLink} to={SIGNINURL} variant="body2">
                 {"Already have an account ? Sign in"}
               </Link>
             </Grid>
@@ -204,7 +178,7 @@ const SignUp = (props) => {
         </form>
       </div >
       <Box mt={5}>
-        <BottomText />
+        <BottomTextInformation />
       </Box>
     </Container >
   );

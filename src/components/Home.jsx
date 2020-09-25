@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, IconButton, Divider, ToggleButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { deepOrange } from '@material-ui/core/colors';
-import HeartButton from './HeartButton';
+import HeartButton from './UI/HeartButton';
 import { MainContext } from './context/ContextProvider';
 import { SIGNINURL } from '../shared/constants';
 import { Redirect } from 'react-router-dom';

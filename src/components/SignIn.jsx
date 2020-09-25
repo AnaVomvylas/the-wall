@@ -8,18 +8,19 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import { MYGITHUBURL } from '../shared/constants';
+
 import { MainContext } from './context/ContextProvider';
 import { Link as RouterLink } from 'react-router-dom';
-import Amplify from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 import { HOMEURL, SIGNUPURL } from '../shared/constants';
+import BottomTextInformation from './UI/BottomTextInformation';
+import ConfirmSignUp from './ConfirmSignUp';
 
+const USERNOTCONFIRMEDEXCEPTION = 'UserNotConfirmedException';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,11 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
-  clickableIcon: {
-    '&:hover': {
-      color: theme.palette.secondary.main
-    },
   }
 }));
 
@@ -50,7 +46,9 @@ const SignIn = (props) => {
   const { setUser } = useContext(MainContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState();
-  const [submitResultText,setSubmitResultText] = useState('');
+  const [submitResultText, setSubmitResultText] = useState('');
+  const [mustConfirmSignUp, setMustConfirmSignUp] = useState(false);
+
 
   async function handleSubmit(event) {
     debugger;
@@ -61,27 +59,26 @@ const SignIn = (props) => {
       setUser(userInfo);
       props.history.push(HOMEURL);
     } catch (err) {
-      setSubmitResultText( 'Sign In Failed. ' + err.message);
+      setSubmitResultText('Sign In Failed. ' + err.message);
+      if (err.code === USERNOTCONFIRMEDEXCEPTION) {
+        setMustConfirmSignUp(true);
+      }
     }
   };
 
-  const BottomText = () => {
+  //Render ConfirmSignUp if user hasn't been verified yet
+  if (mustConfirmSignUp) {
     return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'The Wall - Anastasis Vomvylas   '}
-        <GitHubIcon className={classes.clickableIcon} color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
-        {'   ' + new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+      <ConfirmSignUp username={username} />
+    )
+  };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <VpnKeyOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -137,7 +134,7 @@ const SignIn = (props) => {
         </form>
       </div>
       <Box mt={8}>
-        <BottomText />
+        <BottomTextInformation />
       </Box>
     </Container>
   );

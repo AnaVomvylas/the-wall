@@ -4,4 +4,3 @@ export const MYGITHUBURL = "https://github.com/AnaVomvylas";
 export const SIGNUPURL = '/SignUp';
 export const SIGNINURL = '/SignIn';
 export const HOMEURL = '/';
-
