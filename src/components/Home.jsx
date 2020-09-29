@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +7,7 @@ import HeartButton from './UI/HeartButton';
 import { MainContext } from './context/ContextProvider';
 import { SIGNINURL } from '../shared/constants';
 import { Redirect } from 'react-router-dom';
+import NewPostCard from './UI/NewPostCard';
 
 const useStyles = makeStyles((theme) => ({
   orange: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const { user } = useContext(MainContext);
+  const { asdasd } = useContext(MainContext);
+  const [user, setUser] = useState({username: "Anavomv"});
 
 
   const samplePost =
@@ -46,19 +48,21 @@ const Home = (props) => {
   const multiplePosts = Array(50).fill().map(x => x = samplePost);
 
   //Redirect to signIn page if not authenticated
-  if (!user) {
-    return (
-      <Redirect to={SIGNINURL} />
-  )
-  };
+  // if (!user) {
+  //   return (
+  //     <Redirect to={SIGNINURL} />
+  //   )
+  // };
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container>
         <Grid item xs={false} sm={2} />
-
         <Grid item xs={12} sm={8}>
           <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <NewPostCard username={user.username} />
+            </Grid>
             {multiplePosts}
           </Grid>
         </Grid>

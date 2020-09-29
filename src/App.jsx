@@ -8,12 +8,11 @@ import { } from 'constants';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { HOMEURL, SIGNINURL, SIGNUPURL } from './shared/constants';
 import { ContextProvider } from './components/context/ContextProvider';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, Paper, ThemeProvider } from '@material-ui/core';
 import { deepOrange, orange } from '@material-ui/core/colors';
 
 
 const App = () => {
-
 
   const theme = createMuiTheme({
     palette: {
@@ -24,12 +23,20 @@ const App = () => {
       secondary: {
         main: deepOrange[500]
       }
+    },
+    overrides: {
+      MuiCardActions: {
+        root: {
+          padding: "16px",
+        }
+      }
     }
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <ContextProvider>
+    <ContextProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <BrowserRouter>
           {/* <Navbar /> */}
           <Switch>
@@ -39,8 +46,8 @@ const App = () => {
             <Route component={SignUp} />
           </Switch>
         </BrowserRouter>
-      </ContextProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ContextProvider>
   );
 }
 
