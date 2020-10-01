@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "auth": {
+      "theWallAuth": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "postsTable": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

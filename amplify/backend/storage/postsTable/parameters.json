@@ -1,0 +1,7 @@
+{
+    "tableName": "postsTable",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S",
+    "sortKeyName": "creationDate",
+    "sortKeyType": "N"
+}

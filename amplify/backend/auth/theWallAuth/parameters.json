@@ -1,6 +1,6 @@
 {
     "identityPoolName": "theWallIdentityPool",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "thewal4f0f9012",
     "userPoolName": "theWallUserPool",
     "autoVerifiedAttributes": [

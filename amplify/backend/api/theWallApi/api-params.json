@@ -1,0 +1,45 @@
+{
+    "paths": [
+        {
+            "name": "/posts",
+            "lambdaFunction": "postsFunction",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/posts"
+        }
+    ],
+    "resourceName": "theWallApi",
+    "apiName": "theWallApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "postsFunction"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-thewall-dev-211609-authRole",
+        "unAuthRoleName": "amplify-thewall-dev-211609-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "postsFunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

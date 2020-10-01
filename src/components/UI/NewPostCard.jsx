@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent, makeStyles, TextField } from '@material-ui/core';
 import { useState } from 'react';
+import { API } from 'aws-amplify'
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -9,10 +10,10 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2),
   },
   cardActions: {
-    flex:1,
-    justifyContent:"flex-end"
+    flex: 1,
+    justifyContent: "flex-end"
   },
-  card:{
+  card: {
     borderColor: theme.palette.primary.main
   }
 }));
@@ -24,10 +25,10 @@ const NewPostCard = ({ username, }) => {
 
   const placeholderText = username + ", post something on The Wall";
 
-
-  const createNewPost = () => {
+  async function createNewPost(){
     debugger;
     setClicked(currentState => !currentState);
+
   }
 
   return (
@@ -44,7 +45,7 @@ const NewPostCard = ({ username, }) => {
           />
         </CardContent>
         <CardActions className={classes.cardActions} disableSpacing>
-          <Button size="large"  variant="outlined" color="primary" onClick={createNewPost}>
+          <Button size="large" variant="outlined" color="primary" onClick={createNewPost}>
             Post
           </Button>
         </CardActions>
