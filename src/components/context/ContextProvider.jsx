@@ -16,7 +16,7 @@ async function checkIfAuthenticated() {
   }
 };
 
-export const ContextProvider = props => {
+export const ContextProvider = (props) => {
   let userInfo;
   checkIfAuthenticated().then(result => userInfo = result);
 

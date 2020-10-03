@@ -84,7 +84,6 @@ async function getPosts() {
 }
 
 
-
 /********************************
  * HTTP Get method for list objects *
  ********************************/
@@ -200,6 +199,15 @@ app.post(path, function (req, res) {
   if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
+
+  //auto add body parameters
+  req.body = {
+    ...req.body,
+    id: uuid(),
+    hearted: 0,
+    heartedUsernames: [],
+    creationDate: Date.now()
+  };
 
   let putItemParams = {
     TableName: tableName,

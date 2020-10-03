@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +8,7 @@ import { MainContext } from './context/ContextProvider';
 import { SIGNINURL } from '../shared/constants';
 import { Redirect } from 'react-router-dom';
 import NewPostCard from './UI/NewPostCard';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles((theme) => ({
   orange: {
@@ -18,34 +19,54 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
+
   const { asdasd } = useContext(MainContext);
-  const [user, setUser] = useState({username: "Anavomv"});
+  const [user, setUser] = useState({ username: "Anavomv" });
+  const [posts, setPosts] = useState();
+  const [reCallGetPosts, setReCallGetPosts] = useState(false);
 
+  useEffect(() => {
+    debugger;
+    if (user) {
+      getPosts();
+    }
+  }, [reCallGetPosts]);
 
-  const samplePost =
-    <Grid item>
-      <Card key={"username_here"}>
-        <CardHeader
-          avatar={
-            <Avatar className={classes.orange}>AV</Avatar>
-          }
-          title="Anastasis Vomvylas"
-        />
-        <Divider variant="middle" />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quas commodi facilis sequi voluptatum saepe quaerat enim quo esse corporis laudantium, delectus, suscipit quasi praesentium tempore, fugiat dolores odio? Magnam?
-           </Typography>
-        </CardContent>
-        <Divider variant="middle" />
-        <CardActions disableSpacing>
-          <HeartButton />
-        </CardActions>
-      </Card>
-    </Grid>
-    ;
+  async function getPosts() {
+    try {
+      const response = await API.get('theWallApi', '/posts');
+      setPosts(response.data.Items.sort((a, b) => b.creationDate - a.creationDate));
+    } catch (err) {
+      //Maybe display something
+    }
+  }
 
-  const multiplePosts = Array(50).fill().map(x => x = samplePost);
+  const mapPosts = (arr) => {
+    return (
+      arr.map(x =>
+        <Grid item key={x.id}>
+          <Card>
+            <CardHeader
+              // avatar={
+              //   <Avatar className={classes.orange}>AV</Avatar>
+              // }
+              title={x.username}
+            />
+            <Divider variant="middle" />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {x.content}
+              </Typography>
+            </CardContent>
+            <Divider variant="middle" />
+            <CardActions disableSpacing>
+              <HeartButton timesHearted={x.hearted} />
+            </CardActions>
+          </Card>
+        </Grid>
+      ))
+  }
+
 
   //Redirect to signIn page if not authenticated
   // if (!user) {
@@ -61,9 +82,9 @@ const Home = (props) => {
         <Grid item xs={12} sm={8}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <NewPostCard username={user.username} />
+              <NewPostCard username={user.username} refreshPosts={() => setReCallGetPosts(currentState => !currentState)} />
             </Grid>
-            {multiplePosts}
+            {posts ? mapPosts(posts) : ''}
           </Grid>
         </Grid>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent, makeStyles, TextField } from '@material-ui/core';
 import { useState } from 'react';
-import { API } from 'aws-amplify'
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -18,17 +18,29 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NewPostCard = ({ username, }) => {
-  const [clicked, setClicked] = useState(false);
+const NewPostCard = ({ username, refreshPosts }) => {
   const [postText, setPostText] = useState('');
   const classes = useStyles();
 
   const placeholderText = username + ", post something on The Wall";
 
-  async function createNewPost(){
+  async function createNewPost() {
     debugger;
-    setClicked(currentState => !currentState);
+    const data = {
+      body: {
+        username: username,
+        content: postText
+      }
+    };
 
+    try {
+      debugger;
+      await API.post('theWallApi', '/posts', data);
+      refreshPosts();
+    } catch (err) {
+      //add text 
+      console.log(err);
+    }
   }
 
   return (
