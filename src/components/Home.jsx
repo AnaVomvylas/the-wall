@@ -35,9 +35,9 @@ const Home = (props) => {
   async function getPosts() {
     try {
       const response = await API.get('theWallApi', '/posts');
-      setPosts(response.data.Items.sort((a, b) => b.creationDate - a.creationDate));
+      setPosts(response.data.Items.sort((a, b) => b.creationDate - a.creationDate)); //order descending
     } catch (err) {
-      //Maybe display something
+      return err;
     }
   }
 
@@ -51,6 +51,7 @@ const Home = (props) => {
               //   <Avatar className={classes.orange}>AV</Avatar>
               // }
               title={x.username}
+              subheader={(new Date(x.creationDate)).toLocaleDateString}
             />
             <Divider variant="middle" />
             <CardContent>
@@ -60,7 +61,12 @@ const Home = (props) => {
             </CardContent>
             <Divider variant="middle" />
             <CardActions disableSpacing>
-              <HeartButton timesHearted={x.hearted} />
+              <HeartButton
+                postId={x.id}
+                username={user.username}
+                timesHearted={x.hearted}
+                isHeartedByUser={x.heartedUsernames.indexOf(user.username) >= 0}
+              />
             </CardActions>
           </Card>
         </Grid>
@@ -82,12 +88,14 @@ const Home = (props) => {
         <Grid item xs={12} sm={8}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <NewPostCard username={user.username} refreshPosts={() => setReCallGetPosts(currentState => !currentState)} />
+              <NewPostCard
+                username={user.username}
+                refreshPosts={() => setReCallGetPosts(currentState => !currentState)}
+              />
             </Grid>
-            {posts ? mapPosts(posts) : ''}
+            {posts ? mapPosts(posts) : <ErrorContent />}
           </Grid>
         </Grid>
-
         <Grid item xs={false} sm={2} />
       </Grid>
     </Grid>

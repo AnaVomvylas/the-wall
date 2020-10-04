@@ -1,4 +1,4 @@
-export const MYGITHUBURL = "https://github.com/AnaVomvylas";
+export const MYGITHUBURL = "https://github.com/AnaVomvylas/the-wall";
 
 //URLS
 export const SIGNUPURL = '/SignUp';

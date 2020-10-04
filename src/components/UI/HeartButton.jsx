@@ -4,6 +4,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useState } from 'react';
 import { red } from '@material-ui/core/colors';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles((theme) => ({
     redColor: {
@@ -11,14 +12,35 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const HeartButton = ({ timesHearted }) => {
-    const [clicked, setClicked] = useState(false);
+const HeartButton = ({ postId, username, timesHearted, isHeartedByUser }) => {
     const classes = useStyles();
 
+    const [clicked, setClicked] = useState(isHeartedByUser);
+    const [heartedNumber, setHeartedNumber] = useState(timesHearted);
 
     const handleClick = () => {
         debugger;
-        setClicked(currentState => !currentState);
+        setClicked(currentClicked => !currentClicked);
+        updateHearts();
+    }
+
+    async function updateHearts() {
+        try {
+            const request = {
+                body: {
+                    postId: postId,
+                    username: username,
+                }
+            };
+            const response = await API.post('theWallApi', '/heart', request);
+
+            // PROBABLY ERROR HERE
+            setHeartedNumber(response.data.Items.hearted);
+
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
     }
 
     return (
@@ -31,7 +53,7 @@ const HeartButton = ({ timesHearted }) => {
                 }
                 <Box ml={1}>
                     <Typography className={clicked ? classes.redColor : ''}>
-                        {timesHearted}
+                        {heartedNumber}
                     </Typography>
                 </Box>
             </Button>
