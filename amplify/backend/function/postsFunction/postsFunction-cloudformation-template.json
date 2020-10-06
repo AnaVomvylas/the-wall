@@ -90,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-thewall-dev-211609-deployment",
-          "S3Key": "amplify-builds/postsFunction-364f526342614f68495a-build.zip"
+          "S3Key": "amplify-builds/postsFunction-6d663137646751726236-build.zip"
         }
       }
     },

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const HeartButton = ({ postId, username, timesHearted, isHeartedByUser }) => {
+const HeartButton = ({ postId, username, timesHearted, isHeartedByUser, creationDate }) => {
     const classes = useStyles();
 
     const [clicked, setClicked] = useState(isHeartedByUser);
@@ -20,7 +20,10 @@ const HeartButton = ({ postId, username, timesHearted, isHeartedByUser }) => {
 
     const handleClick = () => {
         debugger;
-        setClicked(currentClicked => !currentClicked);
+        const newClickedState = !clicked;
+        setClicked(newClickedState);
+        setHeartedNumber(currentNumber => newClickedState ? currentNumber + 1 : currentNumber - 1);
+
         updateHearts();
     }
 
@@ -30,13 +33,11 @@ const HeartButton = ({ postId, username, timesHearted, isHeartedByUser }) => {
                 body: {
                     postId: postId,
                     username: username,
+                    creationDate: creationDate
                 }
             };
-            const response = await API.post('theWallApi', '/heart', request);
-
-            // PROBABLY ERROR HERE
-            setHeartedNumber(response.data.Items.hearted);
-
+            const response = await API.patch('theWallApi', '/heart', request);
+            console.log(response);
         } catch (err) {
             console.log(err);
             return err;

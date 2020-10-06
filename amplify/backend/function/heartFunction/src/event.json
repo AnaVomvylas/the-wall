@@ -1,0 +1,8 @@
+{
+  "httpMethod": "PATCH",
+  "path": "/heart",
+  "body": {
+    "postId": "be0e37ea-d1c3-4bbb-a5ce-3efcca7f0edc",
+    "username": "Anavomv"
+  }
+}

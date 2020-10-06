@@ -209,11 +209,11 @@ app.post(path, function (req, res) {
     creationDate: Date.now()
   };
 
-  let putItemParams = {
+  let postItemParams = {
     TableName: tableName,
     Item: req.body
   }
-  dynamodb.put(putItemParams, (err, data) => {
+  dynamodb.put(postItemParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
       res.json({ error: err, url: req.url, body: req.body });

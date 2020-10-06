@@ -17,6 +17,23 @@
                 ]
             },
             "policyResourceName": "/posts"
+        },
+        {
+            "name": "/heart",
+            "lambdaFunction": "heartFunction",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ]
+            }
         }
     ],
     "resourceName": "theWallApi",
@@ -24,11 +41,14 @@
     "functionArns": [
         {
             "lambdaFunction": "postsFunction"
+        },
+        {
+            "lambdaFunction": "heartFunction"
         }
     ],
     "privacy": {
-        "auth": 1,
-        "unauth": 1,
+        "auth": 2,
+        "unauth": 2,
         "authRoleName": "amplify-thewall-dev-211609-authRole",
         "unAuthRoleName": "amplify-thewall-dev-211609-unauthRole"
     },
@@ -40,6 +60,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "heartFunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
-    ]
+    ],
+    "uuid": "ea1ffabb"
 }
