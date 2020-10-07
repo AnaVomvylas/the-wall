@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { MainContext } from './context/ContextProvider';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { HOMEURL, SIGNUPURL } from '../shared/constants';
 import BottomTextInformation from './UI/BottomTextInformation';
@@ -42,12 +42,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) => {
   const classes = useStyles();
-  const { setUser } = useContext(MainContext);
+  const { user, setUser } = useContext(MainContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState();
   const [submitResultText, setSubmitResultText] = useState('');
   const [mustConfirmSignUp, setMustConfirmSignUp] = useState(false);
-
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -55,7 +54,6 @@ const SignIn = (props) => {
       const data = await Auth.signIn(username, password);
       const userInfo = { username: data.username, ...data.attributes }
       setUser(userInfo);
-      props.history.push(HOMEURL);
     } catch (err) {
       setSubmitResultText('Sign In Failed. ' + err.message);
       if (err.code === USERNOTCONFIRMEDEXCEPTION) {
@@ -64,8 +62,12 @@ const SignIn = (props) => {
     }
   };
 
-  //Render ConfirmSignUp if user hasn't been verified yet
-  if (mustConfirmSignUp) {
+
+  if (user) {
+    return (
+      <Redirect to={HOMEURL} />
+    );
+  } else if (mustConfirmSignUp) {
     return (
       <ConfirmSignUp username={username} />
     )
@@ -73,6 +75,7 @@ const SignIn = (props) => {
 
   return (
     <Container component="main" maxWidth="xs">
+
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <VpnKeyOutlinedIcon />

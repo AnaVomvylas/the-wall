@@ -1,33 +1,24 @@
-import React, { createContext } from 'react';
-import useMainReducer from './useMainReducer';
+import React, { createContext, useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
-
-const setUserAction = "SET_USER";
 
 export const MainContext = createContext();
 
-async function checkIfAuthenticated() {
-  try {
-    const data = await Auth.currentAuthenticatedUser()
-    const userInfo = { username: data.username, ...data.attributes }
-    return userInfo;
-  } catch (err) {
-    return null;
-  }
-};
-
 export const ContextProvider = (props) => {
-  let userInfo;
-  checkIfAuthenticated().then(result => userInfo = result);
+  const [user, setUser] = useState();
 
-  const defaultMainState = {
-    user: userInfo
+  useEffect(() => {
+    checkIfAuthenticated();
+  }, []);
+
+  async function checkIfAuthenticated() {
+    try {
+      debugger;
+      const data = await Auth.currentAuthenticatedUser();
+      setUser({ username: data.username, ...data.attributes });
+    } catch (err) {
+      return null;
+    }
   };
-  const [mainState, mainDispatch] = useMainReducer(defaultMainState);
-  
-  const { user } = mainState;
-  const setUser = (user) => mainDispatch({ type: setUserAction, user });
-
 
   const mainContextValue = {
     user,

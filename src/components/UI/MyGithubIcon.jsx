@@ -15,8 +15,8 @@ const MyGithubIcon = () => {
     const classes = useStyles();
 
     return (
-        <IconButton>
-            <GitHubIcon className={classes.clickableIcon} color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
+        <IconButton onClick={e => window.open(MYGITHUBURL, '_blank')}>
+            <GitHubIcon className={classes.clickableIcon} color="inherit" />
         </IconButton>
     );
 }

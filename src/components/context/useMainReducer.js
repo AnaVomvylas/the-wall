@@ -1,6 +1,9 @@
 import { useReducer } from 'react';
 
-const setUser = (state, user) => ({ ...state, user: user });
+const setUser = (state, user) => {
+    localStorage.setItem('user', user);
+    return { ...state, user: user };
+};
 
 const mainReducer = (state, action) => {
     switch (action.type) {

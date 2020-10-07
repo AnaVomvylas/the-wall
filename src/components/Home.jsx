@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Grid, Card, CardHeader, Avatar, CardContent, CardActions, Divider } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardContent, CardActions, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { deepOrange } from '@material-ui/core/colors';
 import HeartButton from './UI/HeartButton';
 import ErrorContent from './UI/ErrorContent';
 import { MainContext } from './context/ContextProvider';
@@ -14,6 +13,7 @@ import TitleBar from './TitleBar';
 
 const Home = (props) => {
   const { user } = useContext(MainContext);
+
   const [posts, setPosts] = useState();
   const [reCallGetPosts, setReCallGetPosts] = useState(false);
   const [postsIsError, setPostsIsError] = useState(false);
@@ -21,6 +21,8 @@ const Home = (props) => {
   useEffect(() => {
     if (user) {
       getPosts();
+    }
+    else {
     }
   }, [reCallGetPosts]);
 
@@ -68,13 +70,9 @@ const Home = (props) => {
       ))
   }
 
-
-  //Redirect to signIn page if not authenticated
   if (!user) {
-    return (
-      <Redirect to={SIGNINURL} />
-    )
-  };
+    return (<Redirect to={SIGNINURL} />);
+  }
 
   return (
     <div>

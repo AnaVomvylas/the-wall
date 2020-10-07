@@ -26,16 +26,19 @@ const NewPostCard = ({ username, refreshPosts }) => {
 
   async function createNewPost() {
     debugger;
+    if (!postText) {
+      return;
+    }
+
     const data = {
       body: {
         username: username,
         content: postText
       }
     };
-
     try {
-      debugger;
       await API.post('theWallApi', '/posts', data);
+      setPostText('');
       refreshPosts();
     } catch (err) {
       //add text 
@@ -53,6 +56,7 @@ const NewPostCard = ({ username, refreshPosts }) => {
             fullWidth
             id="newPostTextField"
             placeholder={placeholderText}
+            value={postText}
             onChange={(e) => setPostText(e.target.value)}
           />
         </CardContent>
