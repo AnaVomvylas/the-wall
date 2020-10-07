@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { MYGITHUBURL } from '../../shared/constants';
 
@@ -15,7 +15,9 @@ const MyGithubIcon = () => {
     const classes = useStyles();
 
     return (
-        <GitHubIcon className={classes.clickableIcon} color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
+        <IconButton>
+            <GitHubIcon className={classes.clickableIcon} color="inherit" onClick={e => window.open(MYGITHUBURL, '_blank')} />
+        </IconButton>
     );
 }
 

@@ -9,13 +9,11 @@ import { SIGNINURL } from '../shared/constants';
 import { Redirect } from 'react-router-dom';
 import NewPostCard from './UI/NewPostCard';
 import { API } from 'aws-amplify';
+import TitleBar from './TitleBar';
 
 
 const Home = (props) => {
-
-
-  const { asdasd } = useContext(MainContext);
-  const [user, setUser] = useState({ username: "Anavomv" });
+  const { user } = useContext(MainContext);
   const [posts, setPosts] = useState();
   const [reCallGetPosts, setReCallGetPosts] = useState(false);
   const [postsIsError, setPostsIsError] = useState(false);
@@ -72,33 +70,36 @@ const Home = (props) => {
 
 
   //Redirect to signIn page if not authenticated
-  // if (!user) {
-  //   return (
-  //     <Redirect to={SIGNINURL} />
-  //   )
-  // };
+  if (!user) {
+    return (
+      <Redirect to={SIGNINURL} />
+    )
+  };
 
   return (
-    <Grid container direction="column" spacing={2}>
-      <Grid item container>
-        <Grid item xs={false} sm={2} />
-        <Grid item xs={12} sm={8}>
-          <Grid container direction="column" spacing={2} >
-            <Grid item>
-              <NewPostCard
-                username={user.username}
-                refreshPosts={() => setReCallGetPosts(currentState => !currentState)}
-              />
+    <div>
+      <TitleBar />
+      <Grid container direction="column" spacing={2}>
+        <Grid item container>
+          <Grid item xs={false} sm={2} />
+          <Grid item xs={12} sm={8}>
+            <Grid container direction="column" spacing={2} >
+              <Grid item>
+                <NewPostCard
+                  username={user.username}
+                  refreshPosts={() => setReCallGetPosts(currentState => !currentState)}
+                />
+              </Grid>
+              {posts ?
+                mapPosts(posts)
+                :
+                postsIsError ? <ErrorContent /> : ''}
             </Grid>
-            {posts ?
-              mapPosts(posts)
-              :
-              postsIsError ? <ErrorContent /> : ''}
           </Grid>
+          <Grid item xs={false} sm={2} />
         </Grid>
-        <Grid item xs={false} sm={2} />
       </Grid>
-    </Grid>
+    </div>
   );
 }
 
