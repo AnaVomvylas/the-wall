@@ -10,7 +10,7 @@ import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { SIGNINURL } from '../shared/constants';
+import { SIGNINURL } from '../constants';
 import BottomTextInformation from './UI/BottomTextInformation';
 import { Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';

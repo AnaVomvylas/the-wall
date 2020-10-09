@@ -4,11 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import HeartButton from './UI/HeartButton';
 import ErrorContent from './UI/ErrorContent';
 import { MainContext } from './context/ContextProvider';
-import { SIGNINURL } from '../shared/constants';
+import { SIGNINURL } from '../constants';
 import { Redirect } from 'react-router-dom';
 import NewPostCard from './UI/NewPostCard';
 import { API } from 'aws-amplify';
-import TitleBar from './TitleBar';
+import TitleBar from './UI/TitleBar';
 
 
 const Home = (props) => {
@@ -78,9 +78,9 @@ const Home = (props) => {
     <div>
       <TitleBar />
       <Grid container direction="column" spacing={2}>
-        <Grid item container>
-          <Grid item xs={false} sm={2} />
-          <Grid item xs={12} sm={8}>
+        <Grid item container justify="center">
+          <Grid item xs={0.5} sm={2} />
+          <Grid item xs={11} sm={8}>
             <Grid container direction="column" spacing={2} >
               <Grid item>
                 <NewPostCard
@@ -94,7 +94,7 @@ const Home = (props) => {
                 postsIsError ? <ErrorContent /> : ''}
             </Grid>
           </Grid>
-          <Grid item xs={false} sm={2} />
+          <Grid item xs={0.5} sm={2} />
         </Grid>
       </Grid>
     </div>

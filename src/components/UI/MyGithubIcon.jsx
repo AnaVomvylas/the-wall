@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, makeStyles } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { MYGITHUBURL } from '../../shared/constants';
+import { MYGITHUBURL } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
     clickableIcon: {

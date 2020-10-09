@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import BottomTextInformation from './UI/BottomTextInformation';
-import { SIGNINURL } from '../shared/constants';
+import { SIGNINURL } from '../constants';
 import { Auth } from 'aws-amplify';
 import ConfirmSignUp from './ConfirmSignUp';
 import { Link as RouterLink } from 'react-router-dom';

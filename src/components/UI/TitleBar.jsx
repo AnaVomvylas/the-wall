@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { Box } from '@material-ui/core';
-import MyGithubIcon from './UI/MyGithubIcon';
+import MyGithubIcon from './MyGithubIcon';
 import { Auth } from 'aws-amplify';
-import { MainContext } from './context/ContextProvider';
+import { MainContext } from '../context/ContextProvider';
 
 const useStyles = makeStyles((theme) => ({
   title: {

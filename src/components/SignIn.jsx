@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import { MainContext } from './context/ContextProvider';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { HOMEURL, SIGNUPURL } from '../shared/constants';
+import { HOMEURL, SIGNUPURL } from '../constants';
 import BottomTextInformation from './UI/BottomTextInformation';
 import ConfirmSignUp from './ConfirmSignUp';
 
