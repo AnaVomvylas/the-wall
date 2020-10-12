@@ -1,68 +1,139 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# The Wall
+This is a social media home page React web application, using AWS serverless backend. Users are able to sign up, sign in, view other users' posts, heart posts and post their own posts.
+<br></br>
 
-## Available Scripts
+# Demo
 
-In the project directory, you can run:
+## [Live application](https://master.d2fql6wu504q84.amplifyapp.com)
+<br></br>
+# Table of Contents
+* [Technologies](#technologies)
+* [Architecture](#architecture)
+* [Pages](#pages)
+  * [Sign Up](#sign-up)
+  * [Confirm Sign Up](#confirm-sign-up)
+  * [Sign In](#sign-in)
+  * [Home](#home)
+* [AWS Amplify](#aws-amplify)
+  * [CI](#ci)
+  * [Amazon Cognito](#amazon-cognito)
+  * [DynamoDB](#dynamodb)
+    * [Posts Table](#posts-table)
+  * [API Gateway](#api-gateway)
+  * [Lambda Functions](#lambda-functions)
+    * [/posts](#/posts)
+    * [/heart](#/heart)
+* [Possible feature additions](#possible-feature-additions)
+<br></br>
+# Technologies
 
-### `npm start`
+* React
+* [Material-ui](https://material-ui.com/)
+* [React Router](https://reactrouter.com/)
+* AWS
+  * [AWS Amplify](https://aws.amazon.com/amplify/)
+  * Amazon Cognito
+  * API Gateway
+  * Lambda functions
+  * DynamoDB
+<br></br>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Architecture
+![The Wall - Architecture](/docs/TheWallArchitecture.jpg?raw=true "The Wall - Architecture")
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# Pages
 
-### `npm test`
+## Sign Up
+[SignUp Component](/src/components/SignUp.jsx)
+<br></br>
+![Sign Up](/docs/images/SignUp.jpg?raw=true "Sign Up")
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Confirm Sign Up
+[ConfirmSignUp Component](/src/components/ConfirmSignUp.jsx)
+<br></br>
+![Confirm Sign Up](/docs/images/VerifyUser.jpg?raw=true "Confirm Sign Up")
 
-### `npm run build`
+## Sign In
+[SignIn Component](/src/components/SignIn.jsx)
+<br></br>
+![Sign In](/docs/images/SignIn.jpg?raw=true "Sign In")
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Home
+[Home Component](/src/components/Home.jsx)
+<br></br>
+![Home](/docs/images/Home.jpg?raw=true "Home")
+<br></br>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# AWS Amplify
+Framework and web hosting solution for web applications.
+The Amplify Framework consists of 3 components, libraries, UI components, and a CLI toolchain. On this project I am using the __libraries__ and the __CLI toolchain__.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The CLI (and the AWS management console) enables me to setup the serverless backend.
 
-### `npm run eject`
+The libraries enable me to connect the backend with my frontend web app.
+<br></br>
+## CI
+Any commits made to the master branch, will automatically trigger a new build in the live application (see [Demo](#demo)).
+This continuous intergration is set up by AWS amplify using CLI.
+<br></br>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Amazon Cognito
+Serverless authentication and authorization service.
+The application's authentication flow is as follows:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Sign Up with username, email and password. A verification code is sent to the email.
+1. Verify the email by entering the verification code
+1. Sign In using username and password
+<br></br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## DynamoDB
+Fully managed NoSQL database 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Posts Table
+This is the only table we are using on this application. It contains all information that pertain to the posts that users make.
 
-## Learn More
+```
+Primary partition key: id (String)
+Primary sort key: creationDate (Number)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Current Schema: {
+  id: String //UUID that is created on the POST method of /posts
+  creationDate: int //the creation date in UTC milis
+  content: String //the user input text of the post
+  hearted: int //the amount of hearts the post has
+  heartedUsernames: String[] //the usernames that have hearted the post. PATCH method of /heart
+  username: String //the username of the poster
+}
+```
+## API Gateway
+The application API, has the Lambda functions connected to serve the paths /posts and /heart as REST.
+<br></br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Lambda Functions
 
-### Code Splitting
+## `/posts`
+Contains HTTP Methods for CRUD on the [postsTable](#posts-table)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## `/heart`
 
-### Analyzing the Bundle Size
+`HTTP PATCH`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+This method is called whenever a user clicks on the heart button of a post.
 
-### Making a Progressive Web App
+It adds or removes the username from the list of users that have hearted the post.
+<br></br>
+```
+Request Body:
+{
+  postId : String,
+  username: String,
+  creationDate: int
+}
+```
+<br></br>
+# Possible feature additions
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Post comments
+* Show who hearted your post on mouse hover
+* Light/Dark mode switch on TItle Bar
+* Avatar or profile picture
