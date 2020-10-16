@@ -58,6 +58,7 @@ const Home = (props) => {
             <Divider variant="middle" />
             <CardActions disableSpacing>
               <HeartButton
+                heartedUsernames={x.heartedUsernames}
                 postId={x.id}
                 username={user.username}
                 timesHearted={x.hearted}
@@ -79,7 +80,7 @@ const Home = (props) => {
       <TitleBar />
       <Grid container direction="column" spacing={2}>
         <Grid item container justify="center">
-          <Grid item xs={0.5} sm={2} />
+          <Grid item xs={0} sm={2} />
           <Grid item xs={11} sm={8}>
             <Grid container direction="column" spacing={2} >
               <Grid item>
@@ -94,7 +95,7 @@ const Home = (props) => {
                 postsIsError ? <ErrorContent /> : ''}
             </Grid>
           </Grid>
-          <Grid item xs={0.5} sm={2} />
+          <Grid item xs={0} sm={2} />
         </Grid>
       </Grid>
     </div>

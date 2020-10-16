@@ -4,3 +4,5 @@ export const MYGITHUBURL = "https://github.com/AnaVomvylas/the-wall";
 export const SIGNUPURL = '/SignUp';
 export const SIGNINURL = '/SignIn';
 export const HOMEURL = '/';
+
+export const MAXHEARTEDTOOLTIP = 5;
