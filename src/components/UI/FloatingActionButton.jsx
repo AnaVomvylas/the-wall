@@ -17,7 +17,6 @@ const FloatingActionButton = () => {
 
 
     const handleClick = () => {
-        debugger;
         setClicked(currentState => !currentState);
     }
 

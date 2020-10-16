@@ -62,7 +62,6 @@ const SignUp = () => {
   }
 
   async function handleSubmit(event) {
-    debugger;
     event.preventDefault();
     if (isPasswordVerified) {
       try {

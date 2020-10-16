@@ -12,7 +12,6 @@ export const ContextProvider = (props) => {
 
   async function checkIfAuthenticated() {
     try {
-      debugger;
       const data = await Auth.currentAuthenticatedUser();
       setUser({ username: data.username, ...data.attributes });
     } catch (err) {

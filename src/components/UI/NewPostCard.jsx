@@ -25,7 +25,6 @@ const NewPostCard = ({ username, refreshPosts }) => {
   const placeholderText = username + ", post something on The Wall";
 
   async function createNewPost() {
-    debugger;
     if (!postText) {
       return;
     }

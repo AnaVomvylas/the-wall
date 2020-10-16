@@ -46,7 +46,6 @@ const ConfirmSignUp = ({ username }) => {
   const [resendConfirmationCodeResult, setResendConfirmationCodeResult] = useState('');
 
   async function handleSubmit(event) {
-    debugger;
     event.preventDefault();
     try {
       await Auth.confirmSignUp(username, confirmationCode);
@@ -57,7 +56,6 @@ const ConfirmSignUp = ({ username }) => {
   };
 
   async function handleResendConfirmationCode() {
-    debugger;
     try {
       await Auth.resendSignUp(username);
       setResendConfirmationCode(true);
