@@ -53,11 +53,12 @@ const HeartButton = ({ postId, username, timesHearted, isHeartedByUser, creation
         }
 
         if (arr.length >= MAXHEARTEDTOOLTIP) {
-            return (<Typography className={classes.tooltip}>
-                {arr.slice(arr.length - 1 - MAXHEARTEDTOOLTIP).join(", ") + " and " + (arr.length - MAXHEARTEDTOOLTIP) + " more"}
-            </Typography>);
+            return (
+                <Typography className={classes.tooltip}>
+                    {arr.slice(-1 * MAXHEARTEDTOOLTIP).join(", ") + " and " + (arr.length - MAXHEARTEDTOOLTIP) + " more"}
+                </Typography>);
         } else {
-            return (<Typography className={classes.tooltip}>{_heartedUsernames.join(", ")}</Typography>);
+            return (<Typography className={classes.tooltip}>{arr.join(", ")}</Typography>);
         }
     }
 
