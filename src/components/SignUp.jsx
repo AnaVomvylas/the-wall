@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import BottomTextInformation from './UI/BottomTextInformation';
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  tooltip: {
+    fontSize: "0.8rem",
+    color: theme.palette.primary.main
   }
 }));
 
@@ -126,19 +131,21 @@ const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Grid>
+            <Tooltip title={<Typography className={classes.tooltip}>Password must be at least 8 characters long</Typography>} placement="right" disableHoverListener>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+            </Tooltip>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
