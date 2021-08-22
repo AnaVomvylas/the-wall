@@ -2,10 +2,6 @@
 This is a social media home page React web application, using AWS serverless backend. Users are able to sign up, sign in, view other users' posts, heart posts and post their own posts.
 <br></br>
 
-# Demo
-
-## [Live application](https://master.d2fql6wu504q84.amplifyapp.com)
-<br></br>
 # Table of Contents
 * [Technologies](#technologies)
 * [Architecture](#architecture)
